@@ -1,0 +1,12 @@
+#Service Naming Rules：[funcom]-cloudrun-[game]-[environment]-[region]
+#param GAME_ID: game name
+#param EnVIRONMENT: development version，eg dev/retail
+#param SIGNATURE_KEY: the key used to verify the data
+#param TOPIC_NAME: pubsub topic
+gcloud run deploy funcom-cloudrun-seabass-dev-europe-west3 --allow-unauthenticated --source .  --region europe-west3 --cpu 1 --memory 128Mi --timeout=3s --concurrency 1000  --min-instances 1 --max-instances 1 --update-env-vars GAME_ID=seabass,ENVIRONMENT=dev,SIGNATURE_KEY=a1b2c3d4e5f6g7h8,PROJECT_ID=dp-funcom-games,TOPIC_NAME=funcom-seabass-dev,SLACK_WEB_HOOK_URL=https://hooks.slack.com/services/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
+
+#update config
+gcloud run services update funcom-cloudrun-seabass-dev-europe-west3  --cpu 1 --memory 128Mi --timeout=3s --concurrency 1000 --min-instances 1 --max-instances 1000 --region europe-west3
+
+#describe
+gcloud run services describe fun10-dev-cloudrunpubsub
